@@ -1,0 +1,71 @@
+openapi: '3.0.2'
+info:
+  title: Revision API 
+  version: '1.0'
+servers:
+  - url: https://test.com
+    description: Rappel 
+paths:
+  /books:
+    get:
+      summary: Get all books
+      description: The returned books are ordered by updated date
+      operationId: GetBooks
+      parameters:
+        - in: query
+          name: name
+          description: Filter return books by given name
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The list of filtered books
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  properties:
+                    id: 
+                      type: string
+                    bookName:
+                      type: string
+    put:
+      summary: The list of created or updated books
+      operationId: updateBooks
+      requestBody:
+        content:
+            application/json:
+              schema: 
+                type: array
+      responses:
+        '200':
+          description: The list of created or updated books
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+components:
+  schemas:
+    Book:
+      type: array
+      properties:
+        id: 
+          type: string
+        bookName:
+          type: string
+        author:
+          type: string
+        pageSize: 
+          type: integer
+        topic:
+          type: string
+          enum:
+            - ROMANCE
+            - COMEDY
+            - OTHER
+
+    
